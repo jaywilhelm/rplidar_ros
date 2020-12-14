@@ -1638,7 +1638,9 @@ u_result RPlidarDriverImplCommon::startScanExpress(bool force, _u16 scanMode, _u
     if (_isScanning) return RESULT_ALREADY_DONE;
 
     printf("goofy delay\n");
+    delay(2500);
     stop(); //force the previous operation to stop
+    delay(2500);
     printf("goofy over\n");
 
     if (scanMode == RPLIDAR_CONF_SCAN_COMMAND_STD)
