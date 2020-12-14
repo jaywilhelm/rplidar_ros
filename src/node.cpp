@@ -261,7 +261,7 @@ int main(int argc, char * argv[]) {
     ros::ServiceServer start_motor_service = nh.advertiseService("start_motor", start_motor);
 
     drv->startMotor();
-    ros::Duration(2000).sleep();
+    ros::Duration(2).sleep();
 
     RplidarScanMode current_scan_mode;
     if (scan_mode.empty()) {
