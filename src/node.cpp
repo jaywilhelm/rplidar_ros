@@ -220,7 +220,7 @@ int main(int argc, char * argv[]) {
     else{
         drv = RPlidarDriver::CreateDriver(rp::standalone::rplidar::DRIVER_TYPE_SERIALPORT);
     }
-
+    drv->reset(2000);
     
     if (!drv) {
         ROS_ERROR("Create Driver fail, exit");
@@ -261,6 +261,7 @@ int main(int argc, char * argv[]) {
     ros::ServiceServer start_motor_service = nh.advertiseService("start_motor", start_motor);
 
     drv->startMotor();
+    ros::Duration(2000).sleep();
 
     RplidarScanMode current_scan_mode;
     if (scan_mode.empty()) {
@@ -291,7 +292,7 @@ int main(int argc, char * argv[]) {
         }
     }
 
-    if(IS_OK(op_result))
+    //if(IS_OK(op_result))
     {
         //default frequent is 10 hz (by motor pwm value),  current_scan_mode.us_per_sample is the number of scan point per us
         angle_compensate_multiple = (int)(1000*1000/current_scan_mode.us_per_sample/10.0/360.0);
@@ -301,9 +302,9 @@ int main(int argc, char * argv[]) {
         ROS_INFO("current scan mode: %s, max_distance: %.1f m, Point number: %.1fK , angle_compensate: %d",  current_scan_mode.scan_mode,
                  current_scan_mode.max_distance, (1000/current_scan_mode.us_per_sample), angle_compensate_multiple);
     }
-    else
+    //else
     {
-        ROS_ERROR("Can not start scan: %08x!", op_result);
+    //    ROS_ERROR("Can not start scan: %08x!", op_result);
     }
 
     ros::Time start_scan_time;
