@@ -220,6 +220,7 @@ int main(int argc, char * argv[]) {
     else{
         drv = RPlidarDriver::CreateDriver(rp::standalone::rplidar::DRIVER_TYPE_SERIALPORT);
     }
+    ROS_INFO("Reset the device...");
     drv->reset(2000);
     
     if (!drv) {
@@ -261,6 +262,7 @@ int main(int argc, char * argv[]) {
     ros::ServiceServer start_motor_service = nh.advertiseService("start_motor", start_motor);
 
     drv->startMotor();
+    ROS_INFO("Little sleep after motor start...");
     ros::Duration(2).sleep();
 
     RplidarScanMode current_scan_mode;
